@@ -1,0 +1,6 @@
+patient_id,image_path,label,split
+PT-0001,images/PT-0001/image_01.png,0,train
+PT-0001,images/PT-0001/image_02.png,0,train
+PT-0002,images/PT-0002/image_01.png,1,internal_test
+PT-0003,images/PT-0003/image_01.png,0,external_test
+
