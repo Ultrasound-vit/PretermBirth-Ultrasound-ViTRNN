@@ -11,6 +11,7 @@ This directory is a consolidated, publication-oriented version of the original r
 - `src/engine.py`: shared training and evaluation loop;
 - `train.py`: reproducible model training and checkpoint selection;
 - `predict.py`: patient-level prediction and imaging-score export;
+- `statistical_analysis.R`: clinical, imaging-only and multimodal model evaluation;
 - `examples/metadata_example.csv`: de-identified input format;
 - `requirements.txt`: Python dependencies used by the cleaned implementation.
 
@@ -62,6 +63,28 @@ python predict.py \
 ```
 
 The exported patient-level imaging score can be combined with the clinical predictors described in the manuscript for downstream multimodal logistic regression analysis.
+
+## Statistical analysis
+
+The R analysis expects three de-identified cohort files in `data/`:
+
+- `training_cohort.csv`
+- `internal_validation_cohort.csv`
+- `external_validation_cohort.csv`
+
+Required analysis columns are `ending`, `cervical_length`, `hemoglobin`, `ART`, `number_of_fetuses` and `img_score`. Run:
+
+```bash
+Rscript statistical_analysis.R
+```
+
+Input and output directories can be changed without editing the source:
+
+```bash
+DATA_DIR=/path/to/data OUTPUT_DIR=/path/to/results Rscript statistical_analysis.R
+```
+
+The script fits all models in the training cohort and applies the fitted models and training-derived classification thresholds unchanged to the internal and external validation cohorts.
 
 ## Implementation notes
 
